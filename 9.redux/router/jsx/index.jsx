@@ -1,3 +1,4 @@
+var Router = ReactRouter.Router;
 var store = Redux.createStore((state, action) => {
   // store
   if (typeof state === 'undefined') {
@@ -62,7 +63,9 @@ var Xfooter = React.createClass({
 })
 
 ReactDOM.render(
+  <Router history>
   <div>
-  <Xheader/>
-  <Xfooter/>
-</div>, document.querySelector('.example'));
+    <Xheader/>
+    <Xfooter/>
+  </div>
+</Router>, document.querySelector('.example'));
