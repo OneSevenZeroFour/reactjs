@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+
+<body>
+  <div id="demo">
+  </div>
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/redux.js"></script>
+  <script>
+    var store = Redux.createStore((state, action) => {
+      if (typeof state === 'undefined') {
+        return {
+          name: "abc",
+          skill: "ps"
+        }
+      }
+      switch (action.type) {
+        case "SETAGE":
+          console.log(action)
+          return {
+            age: action.age,
+            ok: action.ok
+          }
+          break;
+        default:
+
+      }
+    })
+    Vue.component("xheader", {
+      data() {
+        return {
+          age: 19
+        }
+      },
+      template: `
+          <div>
+            <p>{{aged}}</p>
+            <input v-model="age" />
+            <hr />
+          </div>
+        `,
+      mounted() {
+        console.log(store.getState())
+      },
+      computed: {
+        aged() {
+          var self = this;
+          store.dispatch({
+            type: "SETAGE",
+            age: self.age,
+            ok() {
+              console.log("abc")
+            }
+          })
+          return this.age
+        }
+      }
+    })
+    Vue.component("xfooter", {
+      data() {
+        return {
+          age: 20
+        }
+      },
+      template: `
+          <div>
+            <p>{{age}}</p>
+          </div>
+        `,
+      mounted() {
+        var self = this;
+        store.subscribe(() => {
+          console.log(store.getState())
+          self.age = store.getState().age
+          store.getState().ok()
+        })
+      }
+    })
+    new Vue({
+      el: "#demo",
+      data: {
+        name: "laoyao"
+      },
+      template: `
+          <div>
+            <xheader></xheader>
+            <xfooter></xfooter>
+          </div>
+        `
+    })
+  </script>
+</body>
+
+</html>
