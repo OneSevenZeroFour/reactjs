@@ -1,6 +1,11 @@
 import React from "react"
 import store from "../../store.js"
 import Xfooter from "./xfooter.jsx"
+
+// v<=r(s)
+// v<=>t(m)
+// v<=>t(m)
+
 class Cp1 extends React.Component {
   constructor(props) {
     super(props);
